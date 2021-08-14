@@ -7,7 +7,7 @@ from accounts import views
 from . import views as hone_views
 
 urlpatterns = [
-    path('evangelisation', hone_views.index, name="index_hone"),
+    path('', hone_views.index, name="index_hone"),
     path('tu-dois-etre-sauver', views.tu_dois_etre_sauver, name="tu_dois_etre_sauver"),
     path('evangelisation/compte/', include('accounts.urls', namespace='accounts')),
     path('evangelisation/remplissages/', include('remplissages.urls', namespace='rempl')),
