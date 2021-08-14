@@ -1,0 +1,53 @@
+{% load static %}
+<div class="sidebar">
+    <div class="logo-details">
+        <a href="{% url 'index_hone' %}">
+            <img src="{% static 'images/logo.jpg' %}" alt="" >
+        </a>
+    </div>
+    {% if request.user.is_authenticated %}
+    <ul class="nav-links"> 
+        <li>
+            <a {% if active == "index_hone" %}class="active"{% endif %} href="{% url 'index_hone' %}">
+                <i class='bx bx-home' ></i>
+                <span class="link_name">Accueil</span>
+            </a>
+        </li>
+        <li>
+            <a {% if active == "index_rempl" %}class="active"{% endif %} href="{% url 'rempl:index_rempl' %}">
+                <i class='bx bxs-pencil'></i>
+                <span class="link_name">Remplissges</span>
+            </a>
+        </li>
+        <li>
+            <a {% if active == "index_suivie" %}class="active"{% endif %} href="{% url 'suivie:index_suivie' %}">
+                <i class='bx bxs-phone-outgoing'></i>
+                <span class="link_name">Suivie</span>
+            </a>
+        </li>
+        <li>
+            <a {% if active == "rapport" %}class="active"{% endif %} href="{% url 'rapport:index_rapport' %}">
+                <i class='bx bxs-file'></i>
+                <span class="link_name">
+                    Rapport
+                    {% if current_year %}
+                        (<b>{{current_year}}</b>)
+                    {% endif %}
+                    {% if current_month_search and current_year_search %}
+                    (<b>{{ current_month_str_search }} {{ current_year_search }}</b>)
+                    {% endif %}
+                </span>
+            </a>
+        </li>
+        <li>
+            <a {% if active == "gallerie" %}class="active"{% endif %} href="{% url 'gallerie:gallerie_index' %}">
+                <i class='bx bxs-image'></i>
+                <span class="link_name">Gallerie</span>
+            </a>
+        </li>
+    </ul>
+    {% else %}
+
+    {% endif %}
+    
+</div>

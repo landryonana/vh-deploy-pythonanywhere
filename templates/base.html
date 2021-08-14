@@ -1,0 +1,89 @@
+<html lang="fr">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link rel="shortcut icon" href="{% static 'images/icon/favicon2.ico' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!--Box Icons CDN link-->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'accounts/css/account.css' %}">
+    <link rel="stylesheet" href="{% static 'remplissages/css/remplissages.css' %}">
+    <link rel="stylesheet" href="{% static 'suivie/css/suivie.css' %}">
+    <link rel="stylesheet" href="{% static 'rapport/css/rapport.css' %}">
+    <link rel="stylesheet" href="{% static 'gallerie/css/gallerie.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" integrity="sha256-b88RdwbRJEzRx95nCuuva+hO5ExvXXnpX+78h8DjyOE=" crossorigin="anonymous" />
+    {% block style %}
+        <style>
+            .loader {
+                position: fixed;
+                z-index: 99;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .loader > img {
+                width: 100px;
+            }
+            
+            .loader.hidden {
+                animation: fadeOut 1s;
+                animation-fill-mode: forwards;
+            }
+            
+            @keyframes fadeOut {
+                100% {
+                    opacity: 0;
+                    visibility: hidden;
+                }
+            }
+        </style>
+    {% endblock %}
+        
+</head>
+<body>
+    {% include 'layout/sidebar.html' %}
+    <!--Home content-->
+    <section class="home-section">
+        {% include 'layout/navbar.html' %}
+        {% block content %}
+        {% endblock %}
+        <!--<div class="loader">
+            <img src="{% static 'images/loading.gif' %}" alt="Loading..." />
+        </div>-->
+    </section>
+
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'accounts/js/user.js' %}"></script>
+    <script src="{% static 'remplissages/js/remplissages.js' %}"></script>
+    <script src="{% static 'suivie/js/suivie.js' %}"></script>
+    <script src="{% static 'rapport/js/rapport.js' %}"></script>
+    <script src="{% static 'gallerie/js/gallerie.js' %}"></script>
+    <script src="{% static 'rapport/js/plotly-2.3.0.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js" integrity="sha256-/7FLTdzP6CfC1VBAj/rsp3Rinuuu9leMRGd354hvk0k=" crossorigin="anonymous"></script>
+    <script>
+        window.addEventListener("load", function () {
+            const loader = document.querySelector(".loader");
+            loader.className += " hidden"; // class "loader hidden"
+        });
+    </script>
+    {% block script %}
+        
+    {% endblock script %}
+        
+</body>
+</html>

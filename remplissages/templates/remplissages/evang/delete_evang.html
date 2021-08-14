@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Êtes-vous sûr ? évangelisaton du {{ evang.day }} | vh-cam:yaoundé
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrap_rempl">
+            <div class="rempl">
+                <div class="rempl_delete_evang">
+                    <h2 class="mb-3 pt-3">
+                        Êtes-vous sûr ?
+                    </h2>
+                    <p>
+                        Voulez-vous vraiment supprimer ? 
+                        <b class="pl-1"> Évangelisation du {{ evang.day }}</b>
+                    </p>
+                    <form id="id_evang_form" action="{% url 'rempl:delete_rempl' evang.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <p style="color: #c82333;"><b class="pl-1"> Évangelisation du {{ evang.day }}</b> ne sera plus accessible une fois supprimer</p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-with">Oui, je suis sur</button>
+                            <a href="{% url 'rempl:index_rempl' %}" class="btn btn-secondary btn-with">Annuler</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

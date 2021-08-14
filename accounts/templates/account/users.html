@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+paramètres|users|vh-cam:yaoundé
+{% endblock %}
+
+
+{% block content %}
+<div class="wrap_user_infos">
+    <div class="row">
+        <div class="col-md-12">
+            <div style="display: flex; justify-content: space-between;flex-wrap: wrap;">
+                <h2>Liste de tout les boss</h2>
+                <a class="btn btn-success btn-with mb-2" href="{% url 'accounts:user_register' %}">Ajouter</a>
+            </div>
+        </div>
+    </div>
+    <div class="user_infos">
+        <div class="row">
+            <div class="table-responsive tab-elmt">
+                <table class="table table-bordered table-hover" id="table-evang">
+                    <thead>
+                        <tr>
+                          <th scope="col" rowspan="2">#</th>
+                          <th scope="col" rowspan="2">Nom d'utilisateur</th>
+                          <th scope="col" rowspan="2">Nom</th>
+                          <th scope="col" rowspan="2">Prenom</th>
+                          <th scope="col" rowspan="2">E-mail</th>
+                          <th scope="col" rowspan="2">Phone</th>
+                          <th scope="col" rowspan="2">Détail</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.first_name }}</td>
+                                <td>{{ user.last_name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.profile.phone }}</td>
+                                <td>
+                                    <button 
+                                            type="button" 
+                                            class="btn btn-link user-btn-detail" 
+                                            data-url="{% url 'accounts:user_detail' user.id %}">
+                                            détail
+                                    </button>
+                                    <a href="{% url 'accounts:user_delete' user.id %}"
+                                        class="btn btn-danger user-btn-detail">
+                                        <i class='bx bxs-x-square'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-user-detail">
+    <div class="modal-dialog modal-xl modal-lg modal-md">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}

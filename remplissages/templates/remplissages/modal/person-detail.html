@@ -1,0 +1,126 @@
+{% load static %}
+
+<div class="modal-header">
+    <h4 class="modal-title">Détail de <b>{{personne.nom_et_prenom}}</b></h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button> 
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <dl class="dl-horizontal"> 
+                    <div class="pt-3">
+                        <div class="row pt-3">
+                            <dt class="col-sm-12">
+                                Ajouter le : {{ personne.created }} <br>
+                                Mise à jour le : {{ personne.updated }}
+                            </dt>
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Évangélisé par :</dt> 
+                            {% for boss in personne.boss.all %}
+                            <dd class="col-sm-6">
+                                {{ boss.first_name }} {{ boss.last_name }},
+                            </dd> 
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nom  et prenom:</dt> 
+                            <dd class="col-sm-6">{{personne.nom_et_prenom}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Contact :</dt> 
+                            <dd class="col-sm-6">{{personne.contacts}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Quartier :</dt> 
+                            <dd class="col-sm-6">{{personne.quartier_d_habitation}}</dd> 
+                        </div>
+                        <hr>
+                        
+                            {% if personne.accepte_jesus == 'oui' %}
+                            <div class="row pt-3" style="background-color: #54E346;">
+                                <dt class="col-sm-6">Accepte JÉSUS :</dt> 
+                                <dd class="col-sm-6">{{personne.accepte_jesus}}</dd> 
+                            </div>
+                            {% elif personne.accepte_jesus == 'non' %}
+                                <div class="row pt-3" style="background-color: #E71414;">
+                                    <dt class="col-sm-6">Accepte JÉSUS :</dt> 
+                                    <dd class="col-sm-6">{{personne.accepte_jesus}}</dd> 
+                                </div>
+                            {% elif personne.accepte_jesus == 'déjà' %}
+                                <div class="row pt-3" style="background-color: #3EDBF0;">
+                                    <dt class="col-sm-6">Accepte JÉSUS :</dt> 
+                                    <dd class="col-sm-6">{{personne.accepte_jesus}}</dd> 
+                                </div>
+                            {% elif personne.accepte_jesus == 'ras' %}
+                                <div class="row pt-3" style="background-color: #393E46;">
+                                    <dt class="col-sm-6">Accepte JÉSUS :</dt> 
+                                    <dd class="col-sm-6">{{personne.accepte_jesus}}</dd> 
+                                </div>
+                            {% endif %}
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">sexe :</dt> 
+                            <dd class="col-sm-6">{{personne.sexe}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Sujets de prière :</dt> 
+                            <dd class="col-sm-6">{{personne.sujets_de_priere}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Témoignages:</dt> 
+                            <dd class="col-sm-6">{{personne.temoignages}}</dd> 
+                        </div>
+                        <!-----------------Suivi------------------>
+                        <div class="row pt-3">
+                            <h2 class="h-deco" style="width: 100%; text-align: center;margin-top: 25px;">Suivie</h2>
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nombre d'appel:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.nbre_appel}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nombre de visite au culte:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.nbre_visite_au_culte}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nombre d'invitation au culte:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.nbre_invitation_au_culte}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nombre de présence éffective au culte:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.nbre_presence_total_au_culte}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Choix de la personne:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.choix_person}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Boss ayant éffectuer le suivi:</dt> 
+                            <dd class="col-sm-6">{{personne.suivie.boos_suivi}}</dd> 
+                        </div>
+                    </div>
+                </dl>                  
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+</div>

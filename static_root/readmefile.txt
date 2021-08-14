@@ -1,0 +1,1 @@
+fichier où il y aura tous les fichier static

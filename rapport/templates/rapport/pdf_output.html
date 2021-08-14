@@ -1,0 +1,91 @@
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Output</title>
+</head>
+<style>
+    @page{
+        size: 'A4';
+        margin: 2.5cm 1.5cm 3.5cm 1.5cm;
+
+        @top-center{
+            content: "Évangelisation";
+        }
+
+        @bottom-right{
+            content: "Page "counter(page)"/"counter(pages);
+        }
+    }
+</style>
+<body>
+    <div class="table-responsive tab-elmt">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th scope="col" rowspan="2">#</th>
+                    <th scope="col" rowspan="2">Date</th>
+                    <th scope="col" rowspan="2">Site dévangelisation</th>
+                    <th scope="col" rowspan="2">Nom et prénom</th>
+                    <th scope="col" rowspan="2">Contact</th>
+                    <th scope="col" rowspan="2">Quartier</th>
+                    <th scope="col" colspan="4">Accepté JÉSUS</th>
+                    <th scope="col" rowspan="2">Boss</th>
+                    <th scope="col" rowspan="2">Sujets de prière</th>
+                    <th scope="col" rowspan="2">Témoignages</th>
+                </tr>
+                <tr>
+                    <td>Oui</td>
+                    <td>Non</td>
+                    <td>Déjà</td>
+                    <td>Indécis</td>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for personne in personnes %}
+                    <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td >{{ personne.date|date:"d/m/y" }}</td>
+                        <td>{{ personne.site_evangelisation }}</td>
+                        <td>{{ personne.nom_et_prenom }}</td>
+                        <td>{{ personne.contacts }}</td>
+                        <td>{{ personne.quartier_d_habitation }}</td>
+                        {% if personne.accepte_jesus == 'oui' %}
+                            <td style="background-color: #54E346;"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        {% elif personne.accepte_jesus == 'non' %}
+                            <td></td>
+                            <td style="background-color: #E71414;"></td>
+                            <td></td>
+                            <td></td>
+                        {% elif personne.accepte_jesus == 'déjà' %}
+                            <td></td>
+                            <td></td>
+                            <td style="background-color: #3EDBF0;"></td>
+                            <td></td>
+                        {% elif personne.accepte_jesus == 'ras' %}
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td style="background-color: #393E46;"></td>
+                        {% endif %}
+                        <td>
+                            {% for boss in personne.boss.all %}
+                                {{ boss.first_name }} {{ boss.last_name }}, 
+                            {% endfor %}   
+                        </td>
+                        <td>{{ personne.sujets_de_priere }}</td>
+                        <td>{{ personne.temoignages }}</td>
+                    </tr>
+                    {% empty %}
+                    <p class="tabl_empty">pas de donnée</p>
+                {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</body>
+</html>

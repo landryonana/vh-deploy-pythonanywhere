@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+paramètres
+{% endblock %}
+
+
+{% block content %}
+<div class="wrap_user_infos">
+    <div class="user_infos">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="user_update">
+                    <img class="img-fluid" src="{% if request.user.profile.image %}{{ request.user.profile.image.url }}
+                        {% else %}{% static 'images/profile.png' %}{% endif %}" alt="">
+                </div>
+                <div class="row">
+                    <p class="hide_user_action" id="is_action_ok"></p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                    <form action="{% url 'accounts:user_edit' %}" method="post" 
+                          enctype="multipart/form-data" id="js_user_form">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modification sur <b>{{ request.user }}</b></h4>
+                        </div>
+                        {% if is_update %}
+                        <div class="row" id="is_add">
+                            <div class="col-md-12 mt-2">
+                                <p class="pt-2 pb-2 pl-2 pr-2" 
+                                    style="background-color: #256433;
+                                            border-radius: 7px;
+                                            color: #fff;
+                                            font-weight: 600; text-align: center;">
+                                    modification réussie
+                                </p>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div style="margin-top: 15px;">
+                            {% include 'account/formulaire/form.html' %}
+                            <div class="form-group">
+                                <a href="{% url 'accounts:param' %}" class="btn btn-secondary btn-with" id="annul_form">
+                                    Annuler
+                                </a>
+                                <button type="submit" class="btn btn-success btn-with">Sauvegarder</button>
+                                <a href="{% url 'accounts:password_change' %}" class="btn btn-primary btn-with">
+                                    Changer le mot de passe
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-user">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}

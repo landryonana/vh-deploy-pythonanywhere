@@ -1,0 +1,50 @@
+form input#gallerie-input-date{
+    outline: none !important;
+    border-color: #006c69 !important;
+    color: #444;
+    padding: 5px !important;
+    margin-right: 5px !important;
+    border-radius: 7px !important;
+    width: 99%;
+}
+
+form#form-search-date{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+form#form-search-date .form-group{
+    width: 35%;
+}
+
+
+.wrap_detail_img{
+    height: 350px;
+    margin-bottom: 25px !important;
+    width: 100%;
+    margin-right: 0;
+}
+
+.wrap_gallerie_detail_img{
+    height: 350px;
+    margin-bottom: 25px !important;
+    width: 100%;
+    margin-right: 0;   
+}
+
+.modal-image-dialog{
+    width: 50%;
+}
+
+.modal-image-content{
+    height: 550px;
+}
+
+.gallerie-btn-detail img{
+    
+}
+
+.gallerie-btn-detail:focus{
+    border: none;
+}

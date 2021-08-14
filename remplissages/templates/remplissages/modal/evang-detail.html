@@ -1,0 +1,166 @@
+{% load static %}
+<div class="modal-header">
+    <h4 class="modal-title">Détail sur <b>{{evang_oui}}</b></h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button> 
+</div>
+<div class="modal-body" {% if evang_oui.actif == 'oui' %}style="background-color: #c3e6cb;"{% else %}
+        style="background-color: #f5c6cb;"
+        {% endif %}>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="">
+                <h2 class="mb-3 h-deco">Votre moment d'évangelisation</h2>
+                <div class="rempl">
+                    <div class="rempl_descrip">
+                        <dl class="dl-horizontal"> 
+                            <div class="pt-2">
+                                <div class="row">
+                                    <dt class="col-sm-6">Évangélisation du :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.day|date:"d/m/y" }}</dd> 
+                                </div>
+    
+                                <div class="row">
+                                    <dt class="col-sm-6">Créer par :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.author.first_name }} {{ evang_oui.author.last_name }}</dd> 
+                                </div>
+                                
+                                <div class="row">
+                                    <dt class="col-sm-6">Lieu :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.site }}</dd> 
+                                </div>
+    
+                                <div class="row">
+                                    <dt class="col-sm-6">Heure de début :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.heure_de_debut|time:'H:i' }}</dd> 
+                                </div>
+                            
+                                <div class="row">
+                                    <dt class="col-sm-6">Heure de fin :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.heure_de_fin|time:'H:i' }}</dd>
+                                </div>
+                    
+                                <div class="row">
+                                    <dt class="col-sm-6">Durée :</dt> 
+                                    <dd class="col-sm-6">{{ evang_oui.dure }}</dd>
+                                </div>
+                                <div class="row">
+                                    {% if plusieur_oui %}
+                                        <div style="background-color: darkcyan;padding: 7px;width: 100%;">
+                                            vous ne pouvez rien faire pour le moment
+                                            <a href="{% url 'rempl:liste_site' %}" class="btn btn-link ml-3">Liste des évangelisations</a>
+                                        </div>
+                                    {% else %}
+                                        <a href="{% url 'rempl:change_rempl' evang_oui.id %}" class="btn btn-secondary ml-3">Modifier</a>
+                                        <a href="{% url 'rempl:liste_site' %}" class="btn btn-link ml-3">Liste des évangelisations</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="">
+                <h2 class="mb-3 h-deco">
+                    Liste des boss présent
+                </h2> 
+                <div class="rempl">
+                    <div class="table-responsive tab-elmt scroll-tab-elmt-evang-boss">
+                        <table class="table table-hover" id="table-evang">
+                            <thead>
+                                <tr>
+                                    <th scope="col" rowspan="2">#</th>
+                                    <th scope="col" rowspan="2">Nom et Prenom</th>
+                                    <th scope="col" rowspan="2">E-mail</th>
+                                    <th scope="col" rowspan="2">Phone</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for boss in evang_oui.boss.all %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td>{{ boss.first_name }} {{ boss.last_name }}</td>
+                                        <td>{{ boss.email }}</td>
+                                        <td>{{ boss.profile.phone }}</td>
+                                    </tr>
+                                {% empty %}
+                                    <p class="tabl_empty">pas de donnée</p>
+                                {% endfor %}
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="rempl-inline account-site">
+                <div class="rempl_descrip">
+                    <div class="evang-site-nom">
+                        <h2 class="ml-3 h-deco">
+                            <b>{{ evang_oui.site }}</b>
+                            </h2>
+                            <small>Lieu du moment d'évangelisaton du  {{ evang_oui.day|date:"d/m/Y" }}</small>
+                    </div>
+                </div>
+                <div class="site-evang">
+                    <img class="img-fluid" src="{% if evang_oui.site.image %}{{ evang_oui.site.image.url }}
+                        {% else %}{% static 'images/default_lieu.jpg' %}{% endif %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="head_person_evang">
+                <h2 class="h-deco">Personnes évangelisés le {{evang_oui.day|date:"d/m/Y"}}</h2>
+                <a href="{% url 'rempl:add_personne_passe' evang_oui.pk 'passe' %}" class="btn btn-success">Ajouter</a>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="table-responsive tab-elmt scroll-tab-elmt">
+                <table class="table table-bordered table-hover" id="person-evang">
+                    <thead>
+                        <tr>
+                            <th scope="col" rowspan="2">#</th>
+                            <th scope="col" rowspan="2">Date</th>
+                            <th scope="col" rowspan="2">Site dévangelisation</th>
+                            <th scope="col" rowspan="2">Nom et prénom</th>
+                            <th scope="col" rowspan="2">Contact</th>
+                            <th scope="col" rowspan="2">Quartier</th>
+                            <th scope="col" colspan="4">Accepté JÉSUS</th>
+                            <th scope="col" rowspan="2">Boss</th>
+                            <th scope="col" colspan="3">Heure</th>
+                            <th scope="col" rowspan="2">Whatsapp</th>
+                            <th scope="col" rowspan="2">Sujets de prière</th>
+                            <th scope="col" rowspan="2">Témoignages</th>
+                            <th scope="col" rowspan="2">Action</th>
+                        </tr>
+                        <tr>
+                            <td>Oui</td>
+                            <td>Non</td>
+                            <td>Déjà</td>
+                            <td>Ras</td>
+                            <td>Début</td>
+                            <td>Fin</td>
+                            <td>Durée</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% include 'remplissages/personne/table_person_evang.html' %}
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+</div>
+    

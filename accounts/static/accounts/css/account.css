@@ -1,0 +1,111 @@
+.wrap{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.wrap_login_account{
+    position: relative;
+    padding: 15px 0px;
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
+}
+#login{
+    position: relative;
+    /* left: 31%; */
+    /* transform: translateX(-50%); */
+    box-shadow: 0 0 5px #ccc;
+    /* border: 5px solid #fff; */
+    background:#fff;
+    margin: 50px;
+    line-height: normal;
+    padding: 66ppx !important;
+}
+.login-image{
+    position: relative;
+    display: flex;
+    top: 50%;
+    transform: translateY(-50%);
+    justify-content: center;
+    align-items: center;
+}
+
+.login-image img{
+    position: relative;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.change-pass{
+    margin-top: 10%;
+}
+
+.user_img{
+    height: 400px;
+    width: 400px;
+    position: relative;
+    top: 40%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+
+.user_update{
+    height: 400px;
+    width: 400px;
+    position: relative;
+    top: 40%;
+    left: 15px;
+    transform: translateY(-50%);
+}
+
+.user_img img, .user_detail_modal img{
+    border-radius: 50px;
+    text-align: -webkit-center;
+}
+
+
+.oper-user{
+    margin-top: 10%;
+}
+
+.user_update img{
+    border-radius: 50px;
+    text-align: -webkit-center;
+}
+.wrap_user_infos{
+    padding: 125px 0px 0px 0px;
+}
+
+.wrap_user_infos .user_infos{
+    box-shadow: 0 0 5px #ccc;
+    border: 5px solid #fff;
+    background-color: #fff;
+    border-radius: 7px;
+}
+
+.hide_user_action{
+    display: none;
+}
+
+.show_action_user{
+    display: block;
+    background-color: rgba(31, 180, 98, 0.333);
+    width: 100%;
+    padding: 10px;
+}
+
+
+#id_is_superuser{
+    position: relative;
+    top: -30px;
+    height: 20px;
+}
+
+.red_superuser{
+    background-color:#f7aeae;
+    padding: 5px;
+    border-radius: 7px;
+}
+

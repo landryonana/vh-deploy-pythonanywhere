@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+suivie|vh-cam:yaoundé
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrap_rempl">
+            <form id="search_form" action="{% url 'suivie:index_suivie' %}" method="POST" class="mb-1">
+                {% csrf_token %}
+                {{ form.query }}
+                <button type="submit">Go</button>
+            </form>
+            <div class="rempl suivie_info">
+                <div class="rempl_descrip">
+                    <h2>
+                        {% if last_suivi_date %}
+                            Total du {{ last_suivi_date|date:"d/m/y" }}
+                        {% else %}
+                            Total
+                        {% endif %}
+                    </h2>
+                    <dl class="dl-horizontal"> 
+                        <div class="pt-2">
+                            <div class="row" style="background-color: #96E68E;padding: 10px 2px 2px 2px;">
+                                <dt class="col-sm-6">OUI à JÉSUS-CHRIST :</dt> 
+                                <dd class="col-sm-6">{{person_oui}}</dd> 
+                            </div>
+
+                            <div class="row" style="background-color: #D56969;padding: 10px 2px 2px 2px;">
+                                <dt class="col-sm-6">NON à JÉSUS-CHRIST : </dt> 
+                                <dd class="col-sm-6">{{person_non}}</dd> 
+                            </div>
+                            
+                            <div class="row" style="background-color: #8ED9E4;padding: 10px 2px 2px 2px;">
+                                <dt class="col-sm-6">DÉJÀ à JÉSUS-CHRIST :</dt> 
+                                <dd class="col-sm-6">{{person_deja}}</dd> 
+                            </div>
+
+                            <div class="row" style="background-color: #393E46;padding: 10px 2px 2px 2px; color: #fff;">
+                                <dt class="col-sm-6">RAS à JÉSUS-CHRIST :</dt> 
+                                <dd class="col-sm-6">{{person_ras}}</dd> 
+                            </div>
+    
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="table-responsive tab-elmt scroll-tab-elmt">
+            <table class="table table-bordered table-hover" id="person-evang">
+                <thead>
+                    <tr>
+                        <th scope="col" rowspan="2">#</th>
+                        <th scope="col" rowspan="2">Date</th>
+                        <th scope="col" rowspan="2">Site dévangelisation</th>
+                        <th scope="col" rowspan="2">Nom et prénom</th>
+                        <th scope="col" rowspan="2">Contact</th>
+                        <th scope="col" rowspan="2">Quartier</th>
+                        <th scope="col" colspan="4">Accepté JÉSUS</th>
+                        <th scope="col" rowspan="2">Boss</th>
+                        <th scope="col" colspan="2">Suivi</th>
+                        <th scope="col" colspan="3">Présence aux cultes</th>
+                        <th scope="col" rowspan="2" style="background-color: #d4ad14;">Whatsapp ?</th>
+                        <th scope="col" rowspan="2">Sujets de prière</th>
+                        <th scope="col" rowspan="2">Témoignages</th>
+                        <th scope="col" rowspan="2">Action</th>
+                    </tr>
+                    <tr>
+                        <td>Oui</td>
+                        <td>Non</td>
+                        <td>Déjà</td>
+                        <td>Ras</td>
+                        <td>Nombre d'appels</td>
+                        <td>Nombre de visites</td>
+                        <td>Nombre d'invitations</td>
+                        <td>Nombre de présences effectives</td>
+                        <td>reste/passager/indécis</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% include 'suivie/table_suive.html' %}
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

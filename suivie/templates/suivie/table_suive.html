@@ -1,0 +1,57 @@
+{% for personne in last_suivi %}
+    <tr {% if add_suivi_personne == personne.nom_et_prenom %}style="background-color: #3EDBF0;"{% endif %}>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td >{{ personne.date|date:"d/m/y" }}</td>
+        <td>{{ personne.site_evangelisation }}</td>
+        <td>{{ personne.nom_et_prenom }}</td>
+        <td>{{ personne.contacts }}</td>
+        <td>{{ personne.quartier_d_habitation }}</td>
+
+        {% if personne.accepte_jesus == 'oui' %}
+        <td style="background-color: #54E346;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        {% elif personne.accepte_jesus == 'non' %}
+        <td></td>
+        <td style="background-color: #E71414;"></td>
+        <td></td>
+        <td></td>
+        {% elif personne.accepte_jesus == 'déjà' %}
+        <td></td>
+        <td></td>
+        <td style="background-color: #3EDBF0;"></td>
+        <td></td>
+        {% elif personne.accepte_jesus == 'ras' %}
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="background-color: #393E46;"></td>
+        {% endif %}
+        
+        <td>
+           {{  personne.suivie.boos_suivi }}
+        </td>
+        <td>{{ personne.suivie.nbre_appel }}</td>
+        <td>{{ personne.suivie.nbre_visite_au_culte  }}</td>
+        <td>{{ personne.suivie.nbre_invitation_au_culte  }}</td>
+        <td>{{ personne.suivie.nbre_presence_total_au_culte  }}</td>
+        <td>{{ personne.suivie.choix_person  }}</td>
+        <td style="background-color: #d4ad14;
+            {% if personne.whatsapp == 'oui' %}
+                color: green;
+                font-weight: bold;
+            {% endif %}">
+            {{ personne.whatsapp }}
+        </td>
+        <td>{{ personne.sujets_de_priere }}</td>
+        <td>{{ personne.temoignages }}</td>
+        <td>
+            <a href="{% url 'suivie:add_suivie' personne.suivie.pk %}" class="btn btn-success">
+                suivi
+            </a>
+        </td>
+    </tr>
+    {% empty %}
+    <p class="tabl_empty">pas de donnée</p>
+{% endfor %}

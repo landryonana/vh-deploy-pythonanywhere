@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}
+vh-cam:yaoundé
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-5"></div>
+    <div class="col-md-7">
+        <div class="wrap_rempl">
+            <h2>Actions récentes</h2>
+            <div class="rempl" style="background-color: #f8f8f8;border:none;max-height: 750px; overflow: auto;">
+                <div class="rempl_descrip">
+                    <dl class="dl-horizontal"> 
+                        <div class="pt-2">
+                            {% for hist in histories %}
+                                <div class="row">
+                                    {% if hist.action_type == 'ajout de' %}
+                                        <dt style="font-weight: 400;" class="col-sm-12">
+                                            {% if hist.user == request.user %}
+                                                <b>Vous</b> avez 
+                                            {% else %}
+                                                <b>{{hist.user}}</b> a
+                                            {% endif %} 
+                                            ajouté <b>{{hist.content_object}}</b>
+                                            le {{hist.created}}
+                                        </dt>
+                                    {% endif %}
+                                    
+                                    {% if hist.action_type == 'mise à jour de' %}
+                                        <dt style="font-weight: 400;" class="col-sm-12">
+                                            {% if hist.user == request.user %}
+                                                <b>Vous</b> avez modifié
+                                            {% else %}
+                                                <b>{{hist.user}}</b> a modifié
+                                            {% endif %}<b>
+                                            {{hist.content_object}}</b>
+                                            le {{hist.created}}
+                                        </dt>
+                                    {% endif %}
+
+                                    {% if hist.action_type == 'suppresion de' %}
+                                        <dt style="font-weight: 400;" class="col-sm-12">
+                                            {% if hist.user == request.user %}
+                                                <b>Vous</b> avez supprimé
+                                            {% else %}
+                                                <b>{{hist.user}}</b> a supprimé
+                                            {% endif %}<b>
+                                            {{hist.content_object}}</b>
+                                            le {{hist.created}}
+                                        </dt>
+                                    {% endif %}
+                                    
+                                    {% if hist.action_type == 'connection' %}
+                                        <dt class="col-sm-12 table-primary">
+                                            {% if hist.user == request.user %}
+                                                <b>Vous</b> étiez connecté le
+                                            {% else %}
+                                                <b>{{hist.user}}</b> était connecté le
+                                            {% endif %}<b>
+                                                le {{hist.created}}
+                                        </dt>
+                                    {% endif %}
+
+                                    {% if hist.action_type == 'déconnection' %}
+                                        <dt class="col-sm-12 table-danger">
+                                            {% if hist.user == request.user %}
+                                                <b>Vous : </b> 
+                                            {% else %}
+                                                <b>{{hist.user}}</b>
+                                            {% endif %}<b>
+                                            c'est déconnecté le {{hist.created}}
+                                        </dt>
+                                    {% endif %}
+                                        
+                                        
+                                </div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+paramètres
+{% endblock %}
+
+
+{% block content %}
+<div class="wrap_user_infos">
+    <div class="user_infos">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="user_img">
+                    <img class="img-fluid" src="{% if user.profile.image %}{{ user.profile.image.url }}
+                                {% else %}{% static 'images/profile.png' %}{% endif %}" alt="">
+                </div>
+                <div class="row">
+                    <p class="hide_user_action" id="is_action_ok"></p>
+                </div>
+                <div class="row mt-5 mb-3">
+                    <div class="col-md-12">
+                        <div class="oper-user">
+                            {% if user.is_superuser %}
+                            <a href="{% url 'accounts:user_register' %}" class="btn btn-success btn-with">
+                                Ajouter
+                            </a>
+                            {% endif %}
+                            <a href="{% url 'accounts:user_edit' %}" class="btn btn-secondary btn-with">
+                                Modifier
+                            </a>
+                            {% if user.is_superuser %}
+                            <a href="{% url 'accounts:users' %}" class="btn btn-link btn-with" id="user_liste">
+                                Voir la liste
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="mt-1" style="text-decoration: underline;">Vos informations</h2>
+                <dl class="dl-horizontal"> 
+                    <div class="pt-3">
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nom d'utilisateur :</dt> 
+                            <dd class="col-sm-6">{{user.username}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nom et prénom :</dt> 
+                            <dd class="col-sm-6"> {{user.first_name}} {{user.last_name}}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">E-mail :</dt> 
+                            <dd class="col-sm-6">{{ user.email }}</dd> 
+                        </div>
+                        <hr>
+                        {% if user.profile %}
+                            <div class="row pt-3">
+                                <dt class="col-sm-6">Phone :</dt> 
+                                <dd class="col-sm-6">{{ user.profile.phone }}</dd> 
+                            </div>
+                            <hr>
+                            <div class="row pt-3">
+                                <dt class="col-sm-6">Sexe :</dt> 
+                                <dd class="col-sm-6">{{ user.profile.sexe }}</dd>
+                            </div>
+                        {% else %}
+                            <p style="background-color: red;padding:7px;width: 100%;">Veuillez complèter votre profile</p>
+                        {% endif %}
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Status :</dt> 
+                            <dd class="col-sm-6">
+                                {% if user.is_superuser %}
+                                    Vous avez toutes les permissions
+                                {% else %}
+                                    Boss
+                                {% endif %}
+                            </dd> 
+                        </div>
+                    </div>
+                </dl>                  
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-user">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}

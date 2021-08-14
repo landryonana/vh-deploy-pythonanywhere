@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Êtes-vous sûr ? La personne : {{ person.nom_et_prenom }} | vh-cam:yaoundé
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrap_rempl">
+            <div class="rempl">
+                <div class="rempl_delete_evang">
+                    <h2 class="mb-3 pt-3">
+                        Êtes-vous sûr ?
+                    </h2>
+                    <p>
+                        Voulez-vous vraiment supprimer ? 
+                        <b class="pl-1"> La personne {{ person.nom_et_prenom }}</b>
+                    </p>
+                    <form id="id_evang_form" 
+                                        action="
+                                        {% if passe %}
+                                            {% url 'rempl:delete_personne_passe' person.id passe %}
+                                        {% else %}
+                                            {% url 'rempl:delete_personne' person.id %}
+                                        {% endif %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <p style="color: #c0a1a4;"><b class="pl-1">{{ person.nom_et_prenom }}</b> ne sera plus accessible une fois supprimer</p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-with">Oui, je suis sur</button>
+
+                            <a {% if passe %}
+                                    href="{% url 'rempl:liste_site' %}"
+                                {% else %}
+                                    href="{% url 'rempl:index_rempl' %}"
+                                {% endif %}
+                                 class="btn btn-secondary btn-with">Annuler</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

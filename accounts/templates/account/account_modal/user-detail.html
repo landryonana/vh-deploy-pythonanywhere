@@ -1,0 +1,57 @@
+{% load static %}
+
+<div class="modal-header">
+    <h4 class="modal-title">Détail de <b>{{user.username}}</b></h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button> 
+</div>
+<div class="modal-body">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="user_detail_modal">
+                    <img class="img-fluid" src="{% if user.profile.image %}{{ user.profile.image.url }}
+                                {% else %}{% static 'images/profile.png' %}{% endif %}" alt="">
+                </div>
+            </div>
+            <div class="col-md-7">
+                <dl class="dl-horizontal"> 
+                    <div class="pt-3">
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nom d'utilisateur : </dt> 
+                            <dd class="col-sm-6">{{ user.username }}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Nom  et prenom:</dt> 
+                            <dd class="col-sm-6">{{ user.last_name }} {{ user.first_name }}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">E-mail :</dt> 
+                            <dd class="col-sm-6">{{ user.email }}</dd> 
+                        </div>
+                        <hr>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Phone :</dt> 
+                            <dd class="col-sm-6">{{ user.profile.phone }}</dd> 
+                        </div>
+                        <div class="row pt-3">
+                            <dt class="col-sm-6">Sexe :</dt> 
+                            <dd class="col-sm-6">{{ user.profile.sexe }}</dd> 
+                        </div>
+                    </div>
+                </dl>                  
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+</div>
+
+{% block script %}
+    <script>
+    </script>        
+{% endblock script %}

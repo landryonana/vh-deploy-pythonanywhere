@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+Êtes-vous sûr ? L'utilisateur : {{ user.username }} | vh-cam:yaoundé
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrap_rempl">
+            <div class="rempl">
+                <div class="rempl_delete_evang">
+                    <h2 class="mb-3 pt-3">
+                        Êtes-vous sûr ?
+                    </h2>
+                    <p>
+                        Voulez-vous vraiment supprimer ? 
+                        <b class="pl-1"> {{ user.username }}</b>
+                    </p>
+                    <form id="id_evang_form" action="{% url 'accounts:user_delete' user.id %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <p style="color: #c82333;">
+                                <b class="pl-1">
+                                    {% if user.last_name or user.first_name %}
+                                        {{ user.last_name }} {{ user.first_name }}
+                                    {% else %}
+                                        {{ user.username }}
+                                    {% endif %}  
+                                </b> 
+                                ne sera plus accessible une fois supprimer
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger btn-with">Oui, je suis sur</button>
+                            <a href="{% url 'accounts:users' %}" class="btn btn-secondary btn-with">Annuler</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}
+modifier {{ person.nom_et_prenom }} | vh-cam:yaounde
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="wrap_rempl">
+            <h2 class="mb-3">Modification des informations de <b class="pl-1">{{ person.nom_et_prenom }}</b>
+                (<b style="color: #d4ad14;">
+                    {% if passe %}
+                        dans un moment d'évangelisation passé
+                    {% endif %}
+                </b>)
+            </h2>
+            <div class="rempl">
+                <div class="rempl_descrip">
+                    <form id="id_evang_form" 
+                            action="
+                            {% if passe %}
+                                {% url 'rempl:change_personne_passe' person.id passe %}
+                            {% else %}
+                                {% url 'rempl:change_personne' person.id %} 
+                            {% endif %}" 
+                            method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            {% for field in form %}
+                            <div class="col-md-6">
+                                <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                    <label for="{{ field.id_for_label }}">{{field.label}}</label>
+                                    {% render_field field class="form-control" %}
+                                    <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% for error in field.errors %}
+                                        <p class="pt-2 pb-2 pl-2 pr-2" style="background-color: #dc3545;border-radius: 7px;">
+                                            {{ error }}
+                                        </p>
+                                    {% endfor %}
+                                        
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <a 
+                                {% if passe %}
+                                    href="{% url 'rempl:liste_site' %}"
+                                {% else %}
+                                    href="{% url 'rempl:index_rempl' %}"
+                                {% endif %}
+                                class="btn btn-secondary btn-with">Annuler</a>
+                            <button type="submit" class="btn btn-success btn-with">Valider</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

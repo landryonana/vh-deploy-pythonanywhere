@@ -1,0 +1,98 @@
+.rapport-person{
+    margin-top: -25px;
+    width: 100%;
+}
+
+.rapport-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* flex-direction: column; */
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.rapport-select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.rapport-select p{
+    font-size: 15px;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-top: 15px;
+}
+
+.rapport-select select{
+    border: none;
+    background-color: #006c69;
+    padding: 7px;
+    color: #fff;
+    border-radius: 7px;
+}
+
+.rapport-select form input#month{
+    outline: none !important;
+    border-color: #006c69 !important;
+    color: #444;
+    padding: 5px !important;
+    margin-right: 5px !important;
+    border-radius: 7px !important;
+    width: 99%;
+    background: #fff !important;
+}
+.rapport_site{
+    max-height: 450px !important;
+    overflow: auto !important;
+}
+form#form-search-month{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    /* background: aqua; */
+}
+
+.form#form-search-month .form-group{
+    width: 100% !important;
+}
+.rapport-search{
+    width: 100%;
+    margin-bottom: 15px;
+    padding-top: 10px;
+}
+
+.rapport-head-search{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    flex-wrap: wrap;
+}
+.rapport-print .rapport-btn-print{
+    display: flex;
+    justify-content: center;
+}
+
+.rapport-print .rapport-btn-print button{
+    margin: 0 5px;
+}
+
+.rapport-diagram{
+    overflow: auto !important;
+}
+
+.scroll-tab-rappport{
+    max-height: 450px !important;
+    overflow: auto;
+    margin-bottom: 50px;
+}
+
+
+.table td, .table th {
+    padding: 7px !important;
+    text-align: center !important;
+}

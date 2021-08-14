@@ -1,0 +1,76 @@
+{% for pers in personnes_evang_oui %}
+    <tr {% if personne.nom == pers.nom_et_prenom %}style="background-color: #3EDBF0;"{% endif %}
+        {% if personne_nom_passe == pers.nom_et_prenom %}style="background-color: #54E346;"{% endif %}>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ pers.date|date:"d/m/Y" }}</td>
+        <td>{{ pers.site_evangelisation }}</td>
+        <td>{{ pers.nom_et_prenom }}</td>
+        <td>{{ pers.contacts }}</td>
+        <td>{{ pers.quartier_d_habitation }}</td>
+
+        {% if pers.accepte_jesus == 'oui' %}
+            <td style="background-color: #54E346;"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'non' %}
+            <td></td>
+            <td style="background-color: #E71414;"></td>
+            <td></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'déjà' %}
+            <td></td>
+            <td></td>
+            <td style="background-color: #3EDBF0;"></td>
+            <td></td>
+        {% elif pers.accepte_jesus == 'ras' %}
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="background-color: #393E46;"></td>
+        {% endif %}
+        
+        <td>
+            {% for boss in pers.boss.all %}
+            {{ boss.first_name }} {{ boss.last_name }}, 
+            {% endfor %}   
+        </td>
+        <td>{{ evang.heure_de_debut }}</td>
+        <td>{{ evang.heure_de_fin }}</td>
+        <td>{{ evang.dure }}</td>
+        <td style="background-color: #d4ad14;{% if personne.whatsapp == 'oui' %}
+                color: green;
+                font-weight: bold;
+            {% endif %}">{{ pers.whatsapp }}</td>
+        <td>{{ pers.sujets_de_priere|truncatewords:3|linebreaks }}</td>
+        <td>{{ pers.temoignages|truncatewords:3|linebreaks }}</td>
+        <td>
+            <a {% if passe %}
+                    href="{% url 'rempl:change_personne_passe' pers.pk passe %}"
+                {% else %}
+                    href="{% url 'rempl:change_personne' pers.pk %}"
+                {% endif %}
+                class="btn btn-success mt-1 mb-1">
+                <i class='bx bx-pencil'></i>
+            </a>
+            <a  {% if passe %}
+                    href="{% url 'rempl:delete_personne_passe' pers.pk passe %}"
+                {% else %}
+                    href="{% url 'rempl:delete_personne' pers.pk %}"
+                {% endif %} class="btn btn-danger mt-1">
+                <i class='bx bxs-x-square'></i>
+            </a>
+            {% if passe %}
+            {% else %}
+            <button 
+                data-url="{% url 'rempl:detail_personne' pers.pk %}"
+                class="btn btn-link mt-1 mb-1 personne-btn-detail">
+                détail
+            </button>
+            {% endif %}
+            
+        </td>
+    </tr>
+{% empty %}
+    <p class="tabl_empty">pas de donnée</p>
+{% endfor %}

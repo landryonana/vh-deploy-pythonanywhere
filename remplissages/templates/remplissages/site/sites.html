@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    listes:sites|évangelisations|vh-cam:yaoundé
+{% endblock %}
+
+
+{% block content %}
+<div class="wrap_user_infos">
+    <div class="col-md-12">
+        <div class="head_person_evang">
+            <a href="{% url 'rempl:index_rempl' %}" class="btn btn-secondary btn-with">
+                <i style="font-size: 25px;" class='bx bx-arrow-back'></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="head_person_evang">
+            <h2>Tout les sites</h2>
+            <a href="{% url 'rempl:add_site' %}" class="btn btn-success btn-with">Ajouter</a>
+        </div>
+    </div>
+    <div class="user_infos">
+        <div class="row">
+            <div class="table-responsive tab-elmt">
+                <table class="table table-bordered table-hover" id="table-evang">
+                    <thead>
+                        <tr>
+                          <th scope="col" rowspan="2">#</th>
+                          <th scope="col" rowspan="2">Nom</th>
+                          <th scope="col" rowspan="2">créer</th>
+                          <th scope="col" rowspan="2">mise à jour</th>
+                          <th scope="col" rowspan="2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for site in sites %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ site.nom_site_evangelisation }}</td>
+                                <td>{{ site.created }}</td>
+                                <td>{{ site.updated }}</td>
+                                <td>
+                                    <a href="{% url 'rempl:change_site' site.pk %}" class="btn btn-success mt-1 mb-1">
+                                        <i class='bx bx-pencil'></i>
+                                    </a>
+                                    <a  href="{% url 'rempl:delete_site' site.pk %}" class="btn btn-danger mt-1 mb-1">
+                                        <i class='bx bxs-x-square'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <p class="tabl_empty">pas de donnée</p>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="head_person_evang">
+            <h2>Toutes les évangelisations</h2>
+            <a href="{% url 'rempl:add_rempl' %}" class="btn btn-success btn-with">Ajouter</a>
+        </div>
+    </div>
+    <div class="user_infos">
+        <div class="row">
+            <div class="table-responsive tab-elmt">
+                <table class="table table-bordered table-hover" id="table-evang">
+                    <thead>
+                        <tr>
+                          <th scope="col" rowspan="2">Jour</th>
+                          <th scope="col" rowspan="2">Heure de début</th>
+                          <th scope="col" rowspan="2">Heure de fin</th>
+                          <th scope="col" rowspan="2">Durée</th>
+                          <th scope="col" rowspan="2">Site</th>
+                          <th scope="col" rowspan="2">Activé</th>
+                          <th scope="col" rowspan="2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <div class="div-detail displ_none"></div>
+                        {% for evang in evangs %}
+                            <tr {% if evang.actif == 'oui' %}class="table-success"{% else %}class="table-danger"{% endif %}>
+                                <th scope="row">{{ evang.day|date:"d/m/Y" }}</th>
+                                <td>{{ evang.heure_de_debut }}</td>
+                                <td>{{ evang.heure_de_fin }}</td>
+                                <td>{{ evang.dure }}</td>
+                                <td>{{ evang.site }}</td>
+                                <td>{{ evang.actif }}</td>
+                                <td>
+                                    <a href="{% url 'rempl:change_rempl' evang.pk %}" class="btn btn-success mt-1 mb-1">
+                                        <i class='bx bx-pencil'></i>
+                                    </a>
+                                    <a href="{% url 'rempl:delete_rempl' evang.pk %}" class="btn btn-danger mt-1 mb-1">
+                                        <i class='bx bxs-x-square'></i>
+                                    </a>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-link evang_detail mt-1 mb-1"
+                                        data-url="{% url 'rempl:evang_detail_passe' evang.pk 'passe' %}">
+                                        détail
+                                    </button>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <p class="tabl_empty">pas de donnée</p>
+                        {% endfor %}
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-evang-detail">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content"></div>
+    </div>
+</div>
+{% endblock %}
